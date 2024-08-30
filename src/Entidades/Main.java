@@ -18,7 +18,7 @@ public class Main {
             System.out.println(f);
         }
         System.out.println("---------------------------");
-        Ordenação.insertionSort(filmes);
+        Ordenação.mergeSort(filmes);
         for(Filme f : filmes){
             System.out.println(f);
         }

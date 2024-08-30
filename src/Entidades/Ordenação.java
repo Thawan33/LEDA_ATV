@@ -27,10 +27,71 @@ public class Ordenação {
         }
     }
 
-
-    static void mergeSort(int[] vetor){
-        if(vetor.length==1){
+    public static void mergeSort(Filme[] array) {
+        if (array.length <= 1) {
             return;
         }
+        int meio = array.length / 2;
+
+        Filme[] esquerdaArray = new Filme[meio];
+        Filme[] direitaArray = new Filme[array.length - meio];
+
+        System.arraycopy(array, 0, esquerdaArray, 0, meio);
+        System.arraycopy(array, meio, direitaArray, 0, array.length - meio);
+
+        mergeSort(esquerdaArray);
+        mergeSort(direitaArray);
+
+        merge(array, esquerdaArray, direitaArray);
     }
+
+    private static void merge(Filme[] array, Filme[] left, Filme[] right) {
+        int i = 0, j = 0, k = 0;
+
+        while (i < left.length && j < right.length) {
+            Filme leftFilme = left[i];
+            Filme rightFilme = right[j];
+
+            if (leftFilme.nota > rightFilme.nota) {
+                array[k++] = leftFilme;
+                i++;
+            }
+            else if (leftFilme.nota < rightFilme.nota) {
+                array[k++] = rightFilme;
+                j++;
+            }
+            else {
+                if (leftFilme.ano < rightFilme.ano) {
+                    array[k++] = leftFilme;
+                    i++;
+                }
+                else if (leftFilme.ano > rightFilme.ano) {
+                    array[k++] = rightFilme;
+                    j++;
+                }
+                else {
+                    if (leftFilme.nome.compareTo(rightFilme.nome) <= 0) {
+                        array[k++] = leftFilme;
+                        i++;
+                    }
+                    else {
+                        array[k++] = rightFilme;
+                        j++;
+                    }
+                }
+            }
+        }
+
+        // Adiciona os elementos restantes de left
+        while (i < left.length) {
+            array[k++] = left[i++];
+        }
+
+        // Adiciona os elementos restantes de right
+        while (j < right.length) {
+            array[k++] = right[j++];
+        }
+    }
+
+
 }
