@@ -93,5 +93,17 @@ public class Ordenação {
         }
     }
 
-
+    public static void coutingSort(Filme[] array, Filme[] arrayResult, int max){
+        int[] arrayCont = new int[max];
+        for (int i = 0; i < max; i++) {
+            arrayCont[array[i].nota - 1]++;
+        }
+        for (int i = 1; i < max; i++) {
+            arrayCont[i] += arrayCont[i - 1];
+        }
+        for (int i = array.length - 1; i >= 0; i--) {
+            arrayResult[arrayCont[array[i].nota - 1]] = array[i];
+            arrayCont[array[i].nota - 1]--;
+        }
+    }
 }
