@@ -7,20 +7,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Filme> lista = new ArrayList<Filme>();
         Filme[] filmes = {
-            new Filme("A", 10, 2005),
-            new Filme("B", 20, 2006),
+            new Filme("A", 1, 2005),
+            new Filme("B", 1, 2006),
             new Filme("C", 30, 2007),
             new Filme("D", 40, 2008),
             new Filme("E", 50, 2009),
         };
-        for(Filme f:filmes){
-            lista.add(f);
+        for(Filme f : filmes){
+            System.out.println(f);
         }
-        System.out.println(lista);
         System.out.println("---------------------------");
-        Collections.sort(lista);
-        System.out.println(lista);
+        Ordenação.insectionSort(filmes);
+        for(Filme f : filmes){
+            System.out.println(f);
+        }
     }
 }
