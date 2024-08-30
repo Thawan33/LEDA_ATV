@@ -1,22 +1,33 @@
 package Entidades;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Filme[] filmes = {
-            new Filme("A", 1, 2005),
-            new Filme("B", 1, 2006),
-            new Filme("C", 4, 2007),
-            new Filme("D", 4, 2008),
-            new Filme("E", 2, 2009),
-        };
-        for(Filme f : filmes){
-            System.out.println(f);
+        final int TAMANHO_VETOR = 500000;
+        Filme[] filmes = new Filme[TAMANHO_VETOR];
+        int count = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("filmes.txt"))) {
+            String linha;
+            while ((linha = br.readLine()) != null && count < TAMANHO_VETOR) {
+                String[] partes = linha.split(", ");
+                if (partes.length == 3) {
+                    filmes[count++] = new Filme(partes[0], Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("---------------------------");
-        Filme[] filmes2 = new Filme[filmes.length];
-        Ordenação.coutingSort(filmes,filmes2,5);
-        for(Filme f : filmes2){
-            System.out.println(f);
+        for (int i = 0; i < count; i++) {
+            System.out.println(i);
+            System.out.println(filmes[i]);
         }
     }
 }
