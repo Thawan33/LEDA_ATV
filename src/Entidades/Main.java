@@ -3,11 +3,6 @@ package Entidades;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -29,9 +24,8 @@ public class Main {
             e.printStackTrace();
         }
         Ordenacao.coutingSort(filmes, arrayresult, count);
-        for (int i = 0; i < count; i++) {
-            System.out.println(i);
-            System.out.println(arrayresult[i].nome + " " + arrayresult[i].nota + " " + arrayresult[i].ano);
+        for(final Filme filme : arrayresult) {
+            System.out.println(filme);
         }
     }
 }
