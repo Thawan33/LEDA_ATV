@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        final int TAMANHO_VETOR = 500000;
+        final int TAMANHO_VETOR = 20000;
         Scanner sc = new Scanner(System.in);
         Filme[] filmes = new Filme[TAMANHO_VETOR];
         int count = 0;
