@@ -93,25 +93,24 @@ public class Ordenacao {
         }
     }
 
-    // public static void countingSort(Filme[] array, Filme[] arrayResult, int max){
-    //     int [] array2 = new int[max+1];
-    //     /*for(int i = 1; i <=max+1; i++){
-    //         array2[i] = 0;
-    //     }*/
-    //     for (int j = 1; j < array.length; j++){
-    //         array2[array[j].nota] = array2[array[j].nota] + 1;
-    //     }
+    public static void coutingSort(Filme[] array, Filme[] arrayResult, int n) {
+        int maxNota = array[0].nota;
+        for (int i = 1; i < n; i++) {
+            if (array[i].nota > maxNota) {
+                maxNota = array[i].nota;
+            }
+        }
+        int[] arrayCont = new int[maxNota + 1];
 
-    //     for(int i = 2; i <= max+1; i++){
-    //         array2[i] = array2[i] + array2[i-1];
-    //     }
-
-    //     for(int j = array.length-1; j >= 1; j--){
-    //         arrayResult[array2[array[j].nota]] = array[j];
-    //         array2[array[j].nota] = array2[array[j].nota] - 1;
-    //     }
-    
-
-        
-    // }
+        for (int i = 0; i < n; i++) {
+            arrayCont[array[i].nota]++;
+        }
+        for (int i = 1; i <= maxNota; i++) {
+            arrayCont[i] += arrayCont[i - 1];
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            arrayResult[arrayCont[array[i].nota] - 1] = array[i];
+            arrayCont[array[i].nota]--;
+        }
+    }
 }
