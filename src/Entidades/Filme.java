@@ -2,13 +2,13 @@ package Entidades;
 
 public class Filme implements Comparable<Filme>{
     String nome;
-    int nota;
     int ano;
+    int nota;
 
-    public Filme(String nome, int nota, int ano) {
+    public Filme(String nome, int ano, int nota) {
         this.nome = nome;
-        this.nota = nota;
         this.ano = ano;
+        this.nota = nota;
     }
 
     public String getNome() {
@@ -39,8 +39,8 @@ public class Filme implements Comparable<Filme>{
     public String toString() {
         return "Filme{" +
                 "nome='" + nome + '\'' +
-                ", nota=" + nota +
                 ", ano=" + ano +
+                ", nota=" + nota +
                 '}';
     }
 
