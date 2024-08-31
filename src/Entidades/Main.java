@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        final int TAMANHO_VETOR = 500000;
+        final int TAMANHO_VETOR = 50;
         Scanner sc = new Scanner(System.in);
         Filme[] filmes = new Filme[TAMANHO_VETOR];
         int count = 0;
@@ -27,41 +27,53 @@ public class Main {
             e.printStackTrace();
         }
 
-
-        // Menu de escolha de algoritmo de ordenação
-        do {
-            System.out.println("Escolha o algoritmo de ordenação:");
-        System.out.println("1 - Insertion Sort\n2 - Merge Sort\n3 - QuickSort\n4 - Counting Sort");
+        //Escolha do tipo de operação
+        System.out.println("1 - Comparable\n2 - Ordenação\n3 - Busca");
         choice = sc.nextInt();
-        } while (choice < 1 || choice > 4);
-        
-
-
         switch (choice) {
             case 1:
-                Ordenacao.insertionSort(filmes);
-                for(final Filme filme : filmes) {
-                    System.out.println(filme);
-                }
-                break;
+                //Comparação de filmes
+
             case 2:
-                Ordenacao.mergeSort(filmes);
+                // Menu de escolha de algoritmo de ordenação
+                do {
+                    System.out.println("Escolha o algoritmo de ordenação:");
+                    System.out.println("1 - Insertion Sort\n2 - Merge Sort\n3 - QuickSort\n4 - Counting Sort");
+                    choice = sc.nextInt();
+                } while (choice < 1 || choice > 4);
+
+                //Switch com os algoritmos de Ordenação
+                switch (choice) {
+                    case 1:
+                        Ordenacao.insertionSort(filmes);
+                        for (final Filme filme : filmes) {
+                            System.out.println(filme);
+                        }
+                        break;
+                    case 2:
+                        Ordenacao.mergeSort(filmes);
+                        break;
+                    case 3:
+                        Ordenacao.coutingSort(filmes, arrayresult, count);
+                        for (final Filme filme : arrayresult) {
+                            System.out.println(filme);
+                        }
+                        break;
+                    case 4:
+                        //CountingSort
+                        Ordenacao.coutingSort(filmes, arrayresult, count);
+                        for (final Filme filme : arrayresult) {
+                            System.out.println(filme);
+                        }
+                        break;
+                    default:
+
+                        break;
+                }
                 break;
             case 3:
-                //Ordenacao.quickSort(filmes, 0, count - 1);
-                break;
-            case 4:
-            //CountingSort
-                Ordenacao.coutingSort(filmes, arrayresult, count);
-                for(final Filme filme : arrayresult) {
-                    System.out.println(filme);
-                }
-                break;
-            default:
+                // Menu de escolha de algoritmo de busca
                 
-                break;
-        }
-        
-        
+            }
     }
 }

@@ -93,6 +93,38 @@ public class Ordenacao {
         }
     }
 
+    //Método de separação para o QuickSort
+    public static int separar(Filme[] array, int inicio, int fim) {
+        Filme pivo = array[inicio];
+        int i = inicio + 1, f = fim;
+        while (i <= f) {
+            if (array[i].nota <= pivo.nota) {
+                i++;
+            } else if (pivo.nota < array[f].nota) {
+                f--;
+            } else {
+                Filme troca = array[i];
+                array[i] = array[f];
+                array[f] = troca;
+                i++;
+                f--;
+            }
+        }
+        array[inicio] = array[f];
+        array[f] = pivo;
+        return f;
+    }
+
+    //Método de ordenação QuickSort
+    public static void quickSort(Filme[] array, int inicio, int fim) {
+        if (inicio < fim) {
+            int posicaoPivo = separar(array, inicio, fim);
+            quickSort(array, inicio, posicaoPivo - 1);
+            quickSort(array, posicaoPivo + 1, fim);
+        }
+    }
+
+    //Método de ordenação CountingSort
     public static void coutingSort(Filme[] array, Filme[] arrayResult, int n) {
         int maxNota = array[0].nota;
         for (int i = 1; i < n; i++) {
