@@ -9,10 +9,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
-        final int TAMANHO_VETOR = 500000;
+        final int TAMANHO_VETOR = 20;
         Filme[] filmes = new Filme[TAMANHO_VETOR];
+        Ordenacao ordenacao = new Ordenacao();
         int count = 0;
+        Filme[] arrayresult = new Filme[TAMANHO_VETOR]; 
 
         try (BufferedReader br = new BufferedReader(new FileReader("filmes.txt"))) {
             String linha;
@@ -25,9 +28,14 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        countingSort(filmes, arrayresult, count);
         for (int i = 0; i < count; i++) {
             System.out.println(i);
-            System.out.println(filmes[i]);
+            System.out.println(arrayresult[i].nome + " " + arrayresult[i].nota + " " + arrayresult[i].ano);
         }
+
+        ;
+    
+       
     }
 }
