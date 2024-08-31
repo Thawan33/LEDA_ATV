@@ -37,11 +37,9 @@ public class Filme implements Comparable<Filme>{
 
     @Override
     public String toString() {
-        return "Filme{" +
-                "nome='" + nome + '\'' +
-                ", ano=" + ano +
-                ", nota=" + nota +
-                '}';
+        return nome + " | ano = " + ano +
+                " | nota *" + nota +
+                "*";
     }
 
     @Override
