@@ -11,6 +11,7 @@ public class Main {
 
         final int TAMANHO_VETOR = 20000;
         Ordenacao ord = new Ordenacao();
+        Busca busca = new Busca();
         Scanner sc = new Scanner(System.in);
         Filme[] filmes = new Filme[TAMANHO_VETOR];
         int count = 0;
@@ -83,7 +84,8 @@ public class Main {
                         // Busca Linear Iterativa
                         System.out.println("Digite o ano do filme:");
                         int ano = sc.nextInt();
-                        System.out.println(Busca.buscaLinearIterativa(filmes, count, ano));
+                        //usar bloco try catch para pegar a exceção, se não codigo não roda
+                        //System.out.println(busca.buscaLinear_iterativa(filmes, count, ano));
                         break;
                     case 2:
                         // Busca Linear Recursiva
