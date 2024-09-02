@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         final int TAMANHO_VETOR = 20000;
         Ordenacao ord = new Ordenacao();
@@ -74,28 +74,49 @@ public class Main {
                     case 1:
                         // Busca Linear Iterativa
                         System.out.println("Digite o ano do filme:");
-                        int ano = sc.nextInt();
-                        //usar bloco try catch para pegar a exceção, se não codigo não roda
-                        //System.out.println(busca.buscaLinear_iterativa(filmes, count, ano));
-                        break;
+
+                        try {
+                            int ano = sc.nextInt();
+                            System.out.println(busca.buscaLinear_iterativa(filmes, ano));
+                            break;
+                        }catch (NotaInvalidaException e){
+                            System.out.println(e.getMessage());
+                        }
+
+
                     case 2:
                         // Busca Linear Recursiva
                         System.out.println("Digite o ano do filme:");
-                        int ano2 = sc.nextInt();
-                        //System.out.println(Busca.buscaLinearRecursiva(filmes, 0, count - 1, ano2));
-                        break;
+                        try {
+                            int ano2 = sc.nextInt();
+                            System.out.println(busca.buscaLinear_recursiva(filmes, ano2));
+                            break;
+                        }catch (NotaInvalidaException e){
+                            System.out.println(e.getMessage());
+                        }
+
                     case 3:
                         // Busca Binária Iterativa
                         System.out.println("Digite o ano do filme:");
-                        int ano3 = sc.nextInt();
-                        //System.out.println(Busca.buscaBinariaIterativa(filmes, count, ano3));
-                        break;
+                        try {
+                            int ano3 = sc.nextInt();
+                            System.out.println(busca.buscaBinaria_iterativa(filmes, ano3));
+                            break;
+                        }catch (NotaInvalidaException e){
+                            System.out.println(e.getMessage());
+                        }
+
                     case 4:
                         // Busca Binária Recursiva
                         System.out.println("Digite o ano do filme:");
-                        int ano4 = sc.nextInt();
-                        //System.out.println(Busca.buscaBinariaRecursiva(filmes, 0, count - 1, ano4));
-                        break;
+                        try{
+                            int ano4 = sc.nextInt();
+                            System.out.println(busca.buscaBinaria_recursiva(filmes, ano4));
+                            break;
+                        }catch (NotaInvalidaException e){
+                            System.out.println(e.getMessage());
+                        }
+
                     default:
                         System.out.println("Opção inválida!");
                         break;

@@ -112,19 +112,17 @@ public class Ordenacao implements Ordenacao_IF{
         }
     }
 
-    @Override
     public void countingSort(Filme[] filmes) {
         int max = 5;
         int min = 1;
         int range = max - min + 1;
         int[] count = new int[range];
         Filme[] output = new Filme[filmes.length];
-
         for (Filme filme : filmes) {
             count[filme.getNota() - min]++;
         }
-        for (int i = 1; i < count.length; i++) {
-            count[i] += count[i - 1];
+        for (int i = count.length - 2; i >= 0; i--) {
+            count[i] += count[i + 1];
         }
         for (int i = filmes.length - 1; i >= 0; i--) {
             output[count[filmes[i].getNota() - min] - 1] = filmes[i];
@@ -132,6 +130,7 @@ public class Ordenacao implements Ordenacao_IF{
         }
         System.arraycopy(output, 0, filmes, 0, filmes.length);
     }
+
 
     private int comparaFilmes(Filme a, Filme b) {
         if (a.getNota() != b.getNota()) {
