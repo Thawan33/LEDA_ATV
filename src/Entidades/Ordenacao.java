@@ -1,8 +1,14 @@
 package Entidades;
 
-public class Ordenacao {
+public class Ordenacao implements Ordenacao_IF{
 
-    static void insertionSort(Filme[] vetor) {
+    @Override
+    public boolean checaVetorOrdenado(Filme[] filmes) {
+        return false;
+    }
+
+    @Override
+    public void insertionSort(Filme[] vetor) {
         for (int i = 1; i < vetor.length; i++) {
             Filme aux = vetor[i];
             int j = i - 1;
@@ -15,7 +21,8 @@ public class Ordenacao {
         }
     }
 
-    public static void mergeSort(Filme[] array) {
+    @Override
+    public void mergeSort(Filme[] array) {
         if (array.length <= 1) {
             return;
         }
@@ -81,6 +88,16 @@ public class Ordenacao {
         }
     }
 
+    //Método de ordenação QuickSort
+    @Override
+    public void quickSort(Filme[] array, int left, int right) {
+        if (left < right) {
+            int posicaoPivo = separar(array, left, right);
+            quickSort(array, left, posicaoPivo - 1);
+            quickSort(array, posicaoPivo + 1, right);
+        }
+    }
+
     //Método de separação para o QuickSort
     public static int separar(Filme[] array, int left, int right) {
         Filme pivo = array[left];
@@ -104,34 +121,38 @@ public class Ordenacao {
         return f;
     }
 
-    //Método de ordenação QuickSort
-    public static void quickSort(Filme[] array, int left, int right) {
-        if (left < right) {
-            int posicaoPivo = separar(array, left, right);
-            quickSort(array, left, posicaoPivo - 1);
-            quickSort(array, posicaoPivo + 1, right);
-        }
+    @Override
+    public void quickSortRandom(Filme[] filmes) {
+
     }
 
     //Método de ordenação CountingSort
-    public static void coutingSort(Filme[] array, Filme[] arrayResult, int n) {
-        int maxNota = array[0].nota;
+    @Override
+    public void countingSort(Filme[] array) {
+        int maxNota = 5;
+        Filme [] arrayResult = new Filme[array.length];
+        /*
         for (int i = 1; i < n; i++) {
             if (array[i].nota > maxNota) {
                 maxNota = array[i].nota;
             }
-        }
+        }*/
         int[] arrayCont = new int[maxNota + 1];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < array.length; i++) {
             arrayCont[array[i].nota]++;
         }
         for (int i = 1; i <= maxNota; i++) {
             arrayCont[i] += arrayCont[i - 1];
         }
-        for (int i = n - 1; i >= 0; i--) {
+        for (int i = array.length - 1; i >= 0; i--) {
             arrayResult[arrayCont[array[i].nota] - 1] = array[i];
             arrayCont[array[i].nota]--;
+        }
+        int j = array.length - 1;
+        for(int i = 0;i < arrayResult.length;i++) {
+            array[i] = arrayResult[j];
+            j--;
         }
     }
 }
