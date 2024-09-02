@@ -16,7 +16,6 @@ public class Main {
         int count = 0;
         int choice = 0;
 
-        // Leitura do arquivo txt e armazenamento dos dados em um vetor de filmes
         try (BufferedReader br = new BufferedReader(new FileReader("filmes.txt"))) {
             String linha;
             while ((linha = br.readLine()) != null && count < TAMANHO_VETOR) {
@@ -29,23 +28,18 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Escolha do tipo de operação
         System.out.println("-=-=-=-=-= MENU DE OPERAÇÃO -=-=-=-=-=\n1 - Comparable\n2 - Ordenação\n3 - Busca");
         choice = sc.nextInt();
         switch (choice) {
             case 1:
-                // Comparação de filmes
-                // Aqui você pode implementar e chamar o método de comparação se precisar
                 break;
             case 2:
-                // Menu de escolha de algoritmo de ordenação
                 do {
                     System.out.println("-=-=-=-=-= MENU DE ALGORITMO -=-=-=-=-=-=\nEscolha o algoritmo de ordenação:");
                     System.out.println("1 - Insertion Sort\n2 - Merge Sort\n3 - QuickSort\n4 - Counting Sort");
                     choice = sc.nextInt();
                 } while (choice < 1 || choice > 4);
 
-                // Switch com os algoritmos de Ordenação
                 switch (choice) {
                     case 1:
                         ord.insertionSort(filmes);
@@ -64,20 +58,17 @@ public class Main {
                         break;
                 }
 
-                // Exibir filmes ordenados
                 for (int i = 0; i < count; i++) {
                     System.out.println(filmes[i]);
                 }
                 break;
             case 3:
-                // Menu de escolha de algoritmo de busca
                 do {
                     System.out.println("Escolha o algoritmo de busca:");
                     System.out.println("1 - Busca Linear Iterativa\n2- Busca Linear Recursiva\n3 - Busca Binária Iterativa\n4 - Busca Binária Recursiva");
                     choice = sc.nextInt();
                 } while (choice < 1 || choice > 4);
 
-                // Switch com os algoritmos de Busca
                 switch(choice){
                     case 1:
                         // Busca Linear Iterativa
@@ -112,7 +103,6 @@ public class Main {
                 System.out.println("Opção inválida!");
                 break;
         }
-
         sc.close();
     }
 }
