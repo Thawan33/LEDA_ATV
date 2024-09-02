@@ -1,10 +1,17 @@
 package Entidades;
 
+import java.util.Random;
+
 public class Ordenacao implements Ordenacao_IF{
 
     @Override
     public boolean checaVetorOrdenado(Filme[] filmes) {
-        return false;
+        for (int i = 1; i < filmes.length; i++) {
+            if (comparaFilmes(filmes[i - 1], filmes[i]) > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -13,7 +20,7 @@ public class Ordenacao implements Ordenacao_IF{
             Filme aux = vetor[i];
             int j = i - 1;
 
-            while (j >= 0 && (vetor[j].nota < aux.nota || (vetor[j].nota == aux.nota && vetor[j].ano > aux.ano))) {
+            while (j >= 0 && comparaFilmes(vetor[j], aux) > 0) {
                 vetor[j + 1] = vetor[j];
                 j--;
             }
@@ -22,137 +29,117 @@ public class Ordenacao implements Ordenacao_IF{
     }
 
     @Override
-    public void mergeSort(Filme[] array) {
-        if (array.length <= 1) {
-            return;
-        }
-        int meio = array.length / 2;
-
-        Filme[] esquerdaArray = new Filme[meio];
-        Filme[] direitaArray = new Filme[array.length - meio];
-
-        System.arraycopy(array, 0, esquerdaArray, 0, meio);
-        System.arraycopy(array, meio, direitaArray, 0, array.length - meio);
-
-        mergeSort(esquerdaArray);
-        mergeSort(direitaArray);
-
-        merge(array, esquerdaArray, direitaArray);
+    public void quickSort(Filme[] filmes) {
+        quickSortHelper(filmes, 0, filmes.length - 1);
     }
 
-    private static void merge(Filme[] array, Filme[] left, Filme[] right) {
-        int i = 0, j = 0, k = 0;
-
-        while (i < left.length && j < right.length) {
-            Filme leftFilme = left[i];
-            Filme rightFilme = right[j];
-
-            if (leftFilme.nota > rightFilme.nota) {
-                array[k++] = leftFilme;
-                i++;
-            }
-            else if (leftFilme.nota < rightFilme.nota) {
-                array[k++] = rightFilme;
-                j++;
-            }
-            else {
-                if (leftFilme.ano < rightFilme.ano) {
-                    array[k++] = leftFilme;
-                    i++;
-                }
-                else if (leftFilme.ano > rightFilme.ano) {
-                    array[k++] = rightFilme;
-                    j++;
-                }
-                else {
-                    if (leftFilme.nome.compareTo(rightFilme.nome) <= 0) {
-                        array[k++] = leftFilme;
-                        i++;
-                    }
-                    else {
-                        array[k++] = rightFilme;
-                        j++;
-                    }
-                }
-            }
-        }
-
-        // Adiciona os elementos restantes de left
-        while (i < left.length) {
-            array[k++] = left[i++];
-        }
-
-        // Adiciona os elementos restantes de right
-        while (j < right.length) {
-            array[k++] = right[j++];
-        }
-    }
-
-    //Método de ordenação QuickSort
-    @Override
-    public void quickSort(Filme[] array, int left, int right) {
+    private void quickSortHelper(Filme[] filmes, int left, int right) {
         if (left < right) {
-            int posicaoPivo = separar(array, left, right);
-            quickSort(array, left, posicaoPivo - 1);
-            quickSort(array, posicaoPivo + 1, right);
+            int pi = partition(filmes, left, right);
+            quickSortHelper(filmes, left, pi - 1);
+            quickSortHelper(filmes, pi + 1, right);
         }
     }
 
-    //Método de separação para o QuickSort
-    public static int separar(Filme[] array, int left, int right) {
-        Filme pivo = array[left];
-        int i = left + 1;
-        int f = right;
-        while (i <= f) {
-            if (array[i].nota <= pivo.nota) {
+    private int partition(Filme[] filmes, int left, int right) {
+        Filme pivot = filmes[right];
+        int i = left - 1;
+        for (int j = left; j < right; j++) {
+            if (comparaFilmes(filmes[j], pivot) <= 0) {
                 i++;
-            } else if (pivo.nota < array[f].nota) {
-                f--;
-            } else {
-                Filme troca = array[i];
-                array[i] = array[f];
-                array[f] = troca;
-                i++;
-                f--;
+                swap(filmes, i, j);
             }
         }
-        array[left] = array[f];
-        array[f] = pivo;
-        return f;
+        swap(filmes, i + 1, right);
+        return i + 1;
+    }
+
+    private void swap(Filme[] filmes, int i, int j) {
+        Filme temp = filmes[i];
+        filmes[i] = filmes[j];
+        filmes[j] = temp;
     }
 
     @Override
     public void quickSortRandom(Filme[] filmes) {
-
+        randomizeArray(filmes);
+        quickSort(filmes);
     }
 
-    //Método de ordenação CountingSort
-    @Override
-    public void countingSort(Filme[] array) {
-        int maxNota = 5;
-        Filme [] arrayResult = new Filme[array.length];
-        /*
-        for (int i = 1; i < n; i++) {
-            if (array[i].nota > maxNota) {
-                maxNota = array[i].nota;
-            }
-        }*/
-        int[] arrayCont = new int[maxNota + 1];
+    private void randomizeArray(Filme[] filmes) {
+        Random rand = new Random();
+        for (int i = 0; i < filmes.length; i++) {
+            int randomIndex = rand.nextInt(filmes.length);
+            swap(filmes, i, randomIndex);
+        }
+    }
 
-        for (int i = 0; i < array.length; i++) {
-            arrayCont[array[i].nota]++;
+    @Override
+    public void mergeSort(Filme[] filmes) {
+        if (filmes.length > 1) {
+            int mid = filmes.length / 2;
+
+            Filme[] left = new Filme[mid];
+            Filme[] right = new Filme[filmes.length - mid];
+
+            System.arraycopy(filmes, 0, left, 0, mid);
+            System.arraycopy(filmes, mid, right, 0, filmes.length - mid);
+
+            mergeSort(left);
+            mergeSort(right);
+
+            merge(filmes, left, right);
         }
-        for (int i = 1; i <= maxNota; i++) {
-            arrayCont[i] += arrayCont[i - 1];
+    }
+
+    private void merge(Filme[] filmes, Filme[] left, Filme[] right) {
+        int i = 0, j = 0, k = 0;
+
+        while (i < left.length && j < right.length) {
+            if (comparaFilmes(left[i], right[j]) <= 0) {
+                filmes[k++] = left[i++];
+            } else {
+                filmes[k++] = right[j++];
+            }
         }
-        for (int i = array.length - 1; i >= 0; i--) {
-            arrayResult[arrayCont[array[i].nota] - 1] = array[i];
-            arrayCont[array[i].nota]--;
+
+        while (i < left.length) {
+            filmes[k++] = left[i++];
         }
-        int j = array.length - 1;
-        for(int i = 0;i < arrayResult.length;i++) {
-            array[i] = arrayResult[j];
-            j--;
+
+        while (j < right.length) {
+            filmes[k++] = right[j++];
+        }
+    }
+
+    @Override
+    public void countingSort(Filme[] filmes) {
+        int max = 5;
+        int min = 1;
+        int range = max - min + 1;
+        int[] count = new int[range];
+        Filme[] output = new Filme[filmes.length];
+
+        for (Filme filme : filmes) {
+            count[filme.getNota() - min]++;
+        }
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i - 1];
+        }
+        for (int i = filmes.length - 1; i >= 0; i--) {
+            output[count[filmes[i].getNota() - min] - 1] = filmes[i];
+            count[filmes[i].getNota() - min]--;
+        }
+        System.arraycopy(output, 0, filmes, 0, filmes.length);
+    }
+
+    private int comparaFilmes(Filme a, Filme b) {
+        if (a.getNota() != b.getNota()) {
+            return Integer.compare(b.getNota(), a.getNota());
+        } else if (a.getAno() != b.getAno()) {
+            return Integer.compare(a.getAno(), b.getAno());
+        } else {
+            return a.getNome().compareTo(b.getNome());
         }
     }
 }
