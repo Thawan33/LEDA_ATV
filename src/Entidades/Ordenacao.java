@@ -44,11 +44,14 @@ public class Ordenacao implements Ordenacao_IF{
     private int partition(Filme[] filmes, int left, int right) {
         Filme pivot = filmes[right];
         int i = left - 1;
-        for (int j = left; j < right; j++) {
+        int j = left;
+
+        while (j < right) {
             if (comparaFilmes(filmes[j], pivot) <= 0) {
                 i++;
                 swap(filmes, i, j);
             }
+            j++;
         }
         swap(filmes, i + 1, right);
         return i + 1;
@@ -73,7 +76,6 @@ public class Ordenacao implements Ordenacao_IF{
             swap(filmes, i, randomIndex);
         }
     }
-
     @Override
     public void mergeSort(Filme[] filmes) {
         if (filmes.length > 1) {
