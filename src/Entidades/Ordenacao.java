@@ -32,37 +32,49 @@ public class Ordenacao implements Ordenacao_IF{
     public void quickSort(Filme[] filmes) {
         quickSortHelper(filmes, 0, filmes.length - 1);
     }
+
     private void quickSortHelper(Filme[] filmes, int left, int right) {
-        if (left < right) {
+        while (left < right) {
             int pi = partition(filmes, left, right);
-            quickSortHelper(filmes, left, pi - 1);
-            quickSortHelper(filmes, pi + 1, right);
+            // Utiliza recursão na menor sublista e iteração na maior
+            if (pi - left < right - pi) {
+                quickSortHelper(filmes, left, pi - 1);
+                left = pi + 1;  // Itera na parte maior
+            } else {
+                quickSortHelper(filmes, pi + 1, right);
+                right = pi - 1;  // Itera na parte menor
+            }
         }
     }
+
     private int partition(Filme[] filmes, int left, int right) {
-        Filme pivot = filmes[left];
-        int i = left + 1;
+        Filme pivot = filmes[(left + right) / 2];  // Escolhendo o pivô como mediano
+        int i = left;
         int j = right;
 
         while (i <= j) {
-            if (comparaFilmes(filmes[i], pivot) <= 0) {
+            while (comparaFilmes(filmes[i], pivot) < 0) {
                 i++;
-            } else if (comparaFilmes(filmes[j], pivot) > 0) {
+            }
+            while (comparaFilmes(filmes[j], pivot) > 0) {
                 j--;
-            } else {
+            }
+            if (i <= j) {
                 swap(filmes, i, j);
                 i++;
                 j--;
             }
         }
-        swap(filmes, left, j);
-        return j;
+        return i;
     }
+
     private void swap(Filme[] filmes, int i, int j) {
         Filme temp = filmes[i];
         filmes[i] = filmes[j];
         filmes[j] = temp;
     }
+
+
 
     @Override
     public void quickSortRandom(Filme[] filmes) {

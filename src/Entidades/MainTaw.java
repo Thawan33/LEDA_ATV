@@ -29,8 +29,9 @@ public class MainTaw {
         }
 
         Long t1 = System.nanoTime();
-        ord.countingSort(filmes);
+        ord.quickSortRandom(filmes);
         Long t2 = System.nanoTime();
         System.out.println((t2 - t1)/1000000.00 + "ms");
+
     }
 }
