@@ -27,11 +27,14 @@ public class MainTaw {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Long t1 = System.nanoTime();
-        ord.quickSortRandom(filmes);
-        Long t2 = System.nanoTime();
-        System.out.println((t2 - t1)/1000000.00 + "ms");
-
+        //Filme[] filmesCopia = Arrays.copyOf(filmes, filmes.length);
+        for(int i = 0; i <= 9; i++) {
+            ord.insertionSort(filmes);
+            Long t1 = System.nanoTime();
+            ord.quickSort(filmes);
+            Long t2 = System.nanoTime();
+            System.out.println((t2 - t1)/1000000.00 + "ms");
+        }
     }
+
 }

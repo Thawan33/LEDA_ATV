@@ -34,38 +34,31 @@ public class Ordenacao implements Ordenacao_IF{
     }
 
     private void quickSortHelper(Filme[] filmes, int left, int right) {
-        while (left < right) {
+        if (left < right) {
             int pi = partition(filmes, left, right);
-            // Utiliza recursão na menor sublista e iteração na maior
-            if (pi - left < right - pi) {
-                quickSortHelper(filmes, left, pi - 1);
-                left = pi + 1;  // Itera na parte maior
-            } else {
-                quickSortHelper(filmes, pi + 1, right);
-                right = pi - 1;  // Itera na parte menor
-            }
+            quickSortHelper(filmes, left, pi - 1);
+            quickSortHelper(filmes, pi + 1, right);
         }
     }
 
     private int partition(Filme[] filmes, int left, int right) {
-        Filme pivot = filmes[(left + right) / 2];  // Escolhendo o pivô como mediano
-        int i = left;
+        Filme pivot = filmes[left+1];
+        int i = left + 1;
         int j = right;
 
         while (i <= j) {
-            while (comparaFilmes(filmes[i], pivot) < 0) {
+            if (comparaFilmes(filmes[i], pivot) <= 0) {
                 i++;
-            }
-            while (comparaFilmes(filmes[j], pivot) > 0) {
+            } else if (comparaFilmes(filmes[j], pivot) > 0) {
                 j--;
-            }
-            if (i <= j) {
+            } else {
                 swap(filmes, i, j);
                 i++;
                 j--;
             }
         }
-        return i;
+        swap(filmes, left, j);
+        return j;
     }
 
     private void swap(Filme[] filmes, int i, int j) {
@@ -73,7 +66,6 @@ public class Ordenacao implements Ordenacao_IF{
         filmes[i] = filmes[j];
         filmes[j] = temp;
     }
-
 
 
     @Override
