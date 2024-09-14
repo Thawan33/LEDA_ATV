@@ -32,7 +32,6 @@ public class Ordenacao implements Ordenacao_IF{
     public void quickSort(Filme[] filmes) {
         quickSortHelper(filmes, 0, filmes.length - 1);
     }
-
     private void quickSortHelper(Filme[] filmes, int left, int right) {
         if (left < right) {
             int pi = partition(filmes, left, right);
@@ -40,24 +39,25 @@ public class Ordenacao implements Ordenacao_IF{
             quickSortHelper(filmes, pi + 1, right);
         }
     }
-
     private int partition(Filme[] filmes, int left, int right) {
-        //TODO Seguir o slide.
-        Filme pivot = filmes[right];
-        int i = left - 1;
-        int j = left;
+        Filme pivot = filmes[left];
+        int i = left + 1;
+        int j = right;
 
-        while (j < right) {
-            if (comparaFilmes(filmes[j], pivot) <= 0) {
+        while (i <= j) {
+            if (comparaFilmes(filmes[i], pivot) <= 0) {
                 i++;
+            } else if (comparaFilmes(filmes[j], pivot) > 0) {
+                j--;
+            } else {
                 swap(filmes, i, j);
+                i++;
+                j--;
             }
-            j++;
         }
-        swap(filmes, i + 1, right);
-        return i + 1;
+        swap(filmes, left, j);
+        return j;
     }
-
     private void swap(Filme[] filmes, int i, int j) {
         Filme temp = filmes[i];
         filmes[i] = filmes[j];
