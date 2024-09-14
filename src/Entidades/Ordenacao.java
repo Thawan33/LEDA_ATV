@@ -41,15 +41,16 @@ public class Ordenacao implements Ordenacao_IF{
         }
     }
 
+
     private int partition(Filme[] filmes, int left, int right) {
-        Filme pivot = filmes[left+1];
+        Filme pivot = filmes[left];
         int i = left + 1;
         int j = right;
 
         while (i <= j) {
-            if (comparaFilmes(filmes[i], pivot) <= 0) {
+            if (filmes[i].compareTo(pivot) <= 0) {
                 i++;
-            } else if (comparaFilmes(filmes[j], pivot) > 0) {
+            } else if (filmes[j].compareTo(pivot) > 0) {
                 j--;
             } else {
                 swap(filmes, i, j);

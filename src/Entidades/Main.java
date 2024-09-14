@@ -1,3 +1,4 @@
+/*
 package Entidades;
 
 import java.util.Scanner;
@@ -129,3 +130,4 @@ public class Main {
         sc.close();
     }
 }
+*/

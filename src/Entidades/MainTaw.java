@@ -27,14 +27,13 @@ public class MainTaw {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //Filme[] filmesCopia = Arrays.copyOf(filmes, filmes.length);
+        Filme[] filmesCopia = Arrays.copyOf(filmes, filmes.length);
         for(int i = 0; i <= 9; i++) {
-            ord.insertionSort(filmes);
+            filmes = filmesCopia.clone();
             Long t1 = System.nanoTime();
             ord.quickSort(filmes);
             Long t2 = System.nanoTime();
             System.out.println((t2 - t1)/1000000.00 + "ms");
         }
     }
-
 }
