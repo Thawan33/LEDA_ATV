@@ -21,15 +21,15 @@ public class MainTaw {
             while ((linha = br.readLine()) != null && count < TAMANHO_VETOR) {
                 String[] partes = linha.split(", ");
                 if (partes.length == 3) {
-                    filmes[count++] = new Filme(partes[0], Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
+                    filmes[count++] = new Filme(partes[0], Integer.parseInt(partes[2]), Integer.parseInt(partes[1]));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ord.insertionSort(filmes);
+
         Long t1 = System.nanoTime();
-        ord.quickSortRandom(filmes);
+        ord.countingSort(filmes);
         Long t2 = System.nanoTime();
         System.out.println((t2 - t1)/1000000.00 + "ms");
     }
