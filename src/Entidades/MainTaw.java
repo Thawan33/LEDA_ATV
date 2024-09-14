@@ -1,5 +1,9 @@
 package Entidades;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainTaw {
@@ -7,35 +11,26 @@ public class MainTaw {
         Scanner sc = new Scanner(System.in);
         Busca busca = new Busca();
         Ordenacao ord = new Ordenacao();
-        Filme[] arrayFilmes={
-                new Filme("F", 2000, 5),
-                new Filme("E", 2000, 4),
-                new Filme("B", 2001, 4),
-                new Filme("C", 2003, 3),
-                new Filme("D", 2003, 3),
-                new Filme("A", 2000, 1),
-                new Filme("G", 2000, 5),
-                new Filme("H", 2000, 2),
-                new Filme("J", 2000, 2),
-                new Filme("K", 2000, 3),
-                new Filme("L", 2000, 5),
-        };
+        final int TAMANHO_VETOR = 20000;
+        Filme[] filmes = new Filme[TAMANHO_VETOR];
+        int count = 0;
+        int choice = 0;
 
-        try {
-            System.out.println(busca.buscaLinear_iterativa_duasPontas(arrayFilmes, sc.nextInt()));
-        }catch (Exception e){
-            System.err.println(e.getMessage());
+        try (BufferedReader br = new BufferedReader(new FileReader("filmes.txt"))) {
+            String linha;
+            while ((linha = br.readLine()) != null && count < TAMANHO_VETOR) {
+                String[] partes = linha.split(", ");
+                if (partes.length == 3) {
+                    filmes[count++] = new Filme(partes[0], Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        /*
-        for (Filme f : arrayFilmes) {
-            System.out.println(f);
-        }
-        System.out.print("===================================\n");
-        ord.mergeSort(arrayFilmes);
-        for (Filme f : arrayFilmes) {
-            System.out.println(f);
-        }
-
-*/
+        ord.insertionSort(filmes);
+        Long t1 = System.nanoTime();
+        ord.quickSortRandom(filmes);
+        Long t2 = System.nanoTime();
+        System.out.println((t2 - t1)/1000000.00 + "ms");
     }
 }

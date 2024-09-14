@@ -2,13 +2,13 @@ package Entidades;
 
 public class Filme implements Filme_IF{
     String nome;
-    int ano;
     int nota;
+    int ano;
 
-    public Filme(String nome, int ano, int nota) {
+    public Filme(String nome, int nota, int ano) {
         this.nome = nome;
-        this.ano = ano;
         this.nota = nota;
+        this.ano = ano;
     }
 
     public String getNome() {
@@ -48,9 +48,9 @@ public class Filme implements Filme_IF{
 
     @Override
     public String toString() {
-        return nome + " | ano = " + ano +
-                " | nota *" + nota +
-                "*";
+        return nome + " (" + ano +
+                ") [" + nota +
+                "]";
     }
 
     /*

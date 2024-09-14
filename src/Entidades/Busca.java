@@ -79,7 +79,9 @@ public class Busca implements Busca_IF{
         return buscaBinaria_recursiva(filmes,nota,0,filmes.length-1);
     }
     private Filme buscaBinaria_recursiva(Filme[] filmes, int nota, int inicio, int fim){
-
+        if(inicio > fim){
+            return null;
+        }
         int meio = (inicio + fim) / 2;
         Filme f = filmes[meio];
         if (f.nota == nota) {
@@ -99,7 +101,11 @@ public class Busca implements Busca_IF{
         }
         for (int i = 0, j = filmes.length - 1; i <= j; i++, j-- ) {
             if (filmes[i].nota == nota || filmes[j].nota == nota) {
-                return filmes[i];
+                if(nota == filmes[i].nota) {
+                    return filmes[i];
+                }else{
+                    return filmes[j];
+                }
             }
         }
         return null;

@@ -3,7 +3,7 @@ package Entidades;
 import java.util.Random;
 
 public class Ordenacao implements Ordenacao_IF{
-
+    Random rand = new Random();
     @Override
     public boolean checaVetorOrdenado(Filme[] filmes) {
         for (int i = 1; i < filmes.length; i++) {
@@ -42,6 +42,7 @@ public class Ordenacao implements Ordenacao_IF{
     }
 
     private int partition(Filme[] filmes, int left, int right) {
+        //TODO Seguir o slide.
         Filme pivot = filmes[right];
         int i = left - 1;
         int j = left;
@@ -70,7 +71,6 @@ public class Ordenacao implements Ordenacao_IF{
     }
 
     private void randomizeArray(Filme[] filmes) {
-        Random rand = new Random();
         for (int i = 0; i < filmes.length; i++) {
             int randomIndex = rand.nextInt(filmes.length);
             swap(filmes, i, randomIndex);
