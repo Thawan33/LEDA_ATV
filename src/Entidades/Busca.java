@@ -45,24 +45,23 @@ public class Busca implements Busca_IF{
 
     @Override
     public Filme buscaBinaria_iterativa(Filme[] filmes, int nota) throws NotaInvalidaException, VetorDesordenadoException {
+
         if(nota <= 0 || nota > 5){
             throw new NotaInvalidaException("Nota Invalida!");
         }
-        if(!checaVetorOrdenado(filmes)){
-            throw new VetorDesordenadoException("Vetor Desordenado!");
-        }
         int inicio = 0, fim = filmes.length - 1;
         while (inicio <= fim) {
-            int meio = (inicio + fim) / 2;
+            int meio = inicio + (fim - inicio) / 2;
             Filme f = filmes[meio];
             if (f.nota == nota) {
                 return f;
             }
             if (f.nota > nota) {
                 inicio = meio + 1;
-            }
-            if (f.nota < nota) {
+                //fim = meio - 1;
+            } else{
                 fim = meio - 1;
+                //inicio = meio + 1;
             }
         }
         return null;
@@ -72,9 +71,6 @@ public class Busca implements Busca_IF{
     public Filme buscaBinaria_recursiva(Filme[] filmes, int nota) throws Exception {
         if(nota <= 0 || nota > 5){
             throw new NotaInvalidaException("Nota Invalida!");
-        }
-        if(!checaVetorOrdenado(filmes)){
-            throw new VetorDesordenadoException("Vetor Desordenado!");
         }
         return buscaBinaria_recursiva(filmes,nota,0,filmes.length-1);
     }

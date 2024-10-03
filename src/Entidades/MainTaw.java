@@ -7,11 +7,27 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainTaw {
+    public static void reverseArray(Object[] array) {
+        int left = 0;
+        int right = array.length - 1;
+
+        while (left < right) {
+            // Troca os elementos nas posições left e right
+            Object temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // Move os índices para o centro
+            left++;
+            right--;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Busca busca = new Busca();
         Ordenacao ord = new Ordenacao();
-        final int TAMANHO_VETOR = 20000;
+        final int TAMANHO_VETOR = 22000;
         Filme[] filmes = new Filme[TAMANHO_VETOR];
         int count = 0;
         int choice = 0;
@@ -27,9 +43,11 @@ public class MainTaw {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ord.mergeSort(filmes);
         Filme[] filmesCopia = Arrays.copyOf(filmes, filmes.length);
-        for(int i = 0; i <= 9; i++) {
+        for(int i = 0; i <= 29; i++) {
             filmes = filmesCopia.clone();
+            ord.mergeSort(filmes);
             Long t1 = System.nanoTime();
             ord.quickSort(filmes);
             Long t2 = System.nanoTime();
