@@ -27,7 +27,7 @@ public class MainTaw {
         Scanner sc = new Scanner(System.in);
         Busca busca = new Busca();
         Ordenacao ord = new Ordenacao();
-        final int TAMANHO_VETOR = 20000;
+        final int TAMANHO_VETOR = 22000;
         Filme[] filmes = new Filme[TAMANHO_VETOR];
         int count = 0;
         int choice = 0;

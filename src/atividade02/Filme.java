@@ -21,6 +21,12 @@ public class Filme implements Filme_IF {
         cont++;
     }
 
+    public Filme(long ID, String nome) {
+
+        this.ID = ID;
+        this.nome = nome;
+    }
+
     @Override
     public int compareTo(Filme_IF outro_filme) {
         if(this.nota != outro_filme.getNota()) {

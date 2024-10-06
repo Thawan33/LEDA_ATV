@@ -29,9 +29,23 @@ public class BST implements BST_IF{
         return root.getFilme() == null;
     }
 
-    @Override
     public Filme_IF search(long id) throws Exception {
-        return null;
+        return search(root, id);
+    }
+
+    private Filme_IF search(NodeBST root, long id) throws Exception {
+        if (root == null) {
+            throw new Exception("Filme não encontrado!");
+        }
+        if (root.getFilme().getID() == id) {
+            return root.getFilme();
+        }
+        if (id < root.getFilme().getID()) {
+            return search(root.getLeft(), id);
+        }
+        else {
+            return search(root.getRight(), id);
+        }
     }
 
     @Override
@@ -57,13 +71,33 @@ public class BST implements BST_IF{
 
     @Override
     public int size() {
-        return 0;
+        return size(root);
+    }
+
+    private int size(NodeBST root) {
+        if (root == null) {
+            return 0;
+        } else {
+            return 1 + size(root.getLeft()) + size(root.getRight());
+        }
     }
 
     @Override
     public boolean isComplete() {
-        return false;
+        return isComplete(root, 0, size());
     }
+
+    private boolean isComplete(NodeBST node, int index, int numNodes) {
+        if (node == null) {
+            return true;
+        }
+        if (index >= numNodes) {
+            return false;
+        }
+        return isComplete(node.getLeft(), 2 * index + 1, numNodes) &&
+                isComplete(node.getRight(), 2 * index + 2, numNodes);
+    }
+
 
     @Override
     public Filme_IF[] preOrder() {
