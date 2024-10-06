@@ -10,19 +10,17 @@ public class BST implements BST_IF{
 
     @Override
     public void insert(Filme_IF filme) {
-        insert(root,filme);
+        root = insert(root,filme);
     }
     private NodeBST insert(NodeBST root, Filme_IF filme) {
         if (root == null) {
             root = new NodeBST(filme);
             return root;
         }
-
-        if (filme.compareTo(root.getFilme()) < 0)
+        if ((Long.compare(filme.getID(),root.getFilme().getID())) < 0)
             root.setLeft(insert(root.getLeft(), filme));
-        else if (filme.compareTo(root.getFilme()) > 0)
+        else if ((Long.compare(filme.getID(),root.getFilme().getID())) > 0)
             root.setRight(insert(root.getRight(), filme));
-
         return root;
     }
 
@@ -46,7 +44,15 @@ public class BST implements BST_IF{
 
     @Override
     public int height() {
-        return 0;
+        return height(root);
+    }
+    private int height(NodeBST node) {
+        if (node == null){
+            return -1;
+        }
+        int leftHeight = height(node.getLeft());
+        int rightHeight = height(node.getRight());
+        return Math.max(leftHeight, rightHeight) + 1;
     }
 
     @Override
@@ -61,7 +67,15 @@ public class BST implements BST_IF{
 
     @Override
     public Filme_IF[] preOrder() {
-        return new Filme_IF[0];
+        return preOrder(root);
+    }
+    private Filme_IF[] preOrder(NodeBST node) {
+        if (root != null) {
+            System.out.println(root.getFilme() + "-");
+            order(root.getLeft());
+            order(root.getRight());
+        }
+        return null;
     }
 
     @Override
@@ -79,6 +93,14 @@ public class BST implements BST_IF{
 
     @Override
     public Filme_IF[] postOrder() {
-        return new Filme_IF[0];
+        return postOrder(root);
+    }
+    private Filme_IF[] postOrder(NodeBST node) {
+        if (root != null) {
+            order(root.getLeft());
+            order(root.getRight());
+            System.out.println(root.getFilme() + "-");
+        }
+        return null;
     }
 }
