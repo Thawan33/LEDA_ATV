@@ -19,6 +19,10 @@ public class Main {
         arvore.insert(filme5);
         arvore.insert(filme7);
         System.out.println(arvore.isComplete());
+        arvore.order();
+        System.out.println();
+        arvore.remove(2);
+        arvore.order();
 
     }
 }

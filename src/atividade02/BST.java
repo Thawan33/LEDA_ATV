@@ -5,7 +5,50 @@ public class BST implements BST_IF{
 
     @Override
     public Filme_IF remove(long id) throws Exception {
-        return null;
+        NodeBST removido = new NodeBST();
+        root = remover(root, id, removido);
+        if (removido.getFilme() == null) {
+            throw new Exception("Filme não encontrado!");
+        }
+        return removido.getFilme();
+    }
+
+    private NodeBST remover(NodeBST node, long id, NodeBST removido) {
+        if (node == null) {
+            return null;
+        }
+        if (id < node.getFilme().getID()) {
+            node.setLeft(remover(node.getLeft(), id, removido));
+        } else if (id > node.getFilme().getID()) {
+            node.setRight(remover(node.getRight(), id, removido));
+        } else {
+            removido.setFilme(node.getFilme());
+
+            if (node.getLeft() == null && node.getRight() == null) {
+                return null;
+            }
+
+            // Caso 2: um filho
+            if (node.getLeft() == null) {
+                return node.getRight();
+            } else if (node.getRight() == null) {
+                return node.getLeft();
+            }
+
+            // Caso 3: dois filhos
+            NodeBST sucessor = encontrarSucessor(node.getRight());
+            node.setFilme(sucessor.getFilme());
+            node.setRight(remover(node.getRight(), sucessor.getFilme().getID(), new NodeBST(null)));
+        }
+
+        return node;
+    }
+
+    private NodeBST encontrarSucessor(NodeBST node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
     }
 
     @Override
