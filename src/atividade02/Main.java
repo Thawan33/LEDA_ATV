@@ -11,7 +11,6 @@ public class Main {
         Filme_IF filme5 = new Filme(5, "Filme E");
         Filme_IF filme6 = new Filme(6, "Filme F");
         Filme_IF filme7 = new Filme(7, "Filme G");
-
         arvore.insert(filme4);
         arvore.insert(filme2);
         arvore.insert(filme6);
