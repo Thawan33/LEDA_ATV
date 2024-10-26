@@ -4,6 +4,8 @@ public class TabelaHash implements TabelaHash_IF{
     private static final int M = 10;
     private Lista_IF lista = new Lista();
     Lista_IF[] T = new Lista_IF[M];
+
+
     @Override
     public Filme_IF remove(long id) throws Exception {
         return null;
@@ -22,6 +24,17 @@ public class TabelaHash implements TabelaHash_IF{
 
     @Override
     public Filme_IF search(long id) throws Exception {
+        int hashIndex = hash(id);
+        lista = T [hashIndex];
+        try {
+            for()
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
         return null;
     }
 
@@ -30,6 +43,6 @@ public class TabelaHash implements TabelaHash_IF{
         return "";
     }
     private int hash(long id) {
-        return (int) (id % M);
+        return (int)(id % M);
     }
 }
