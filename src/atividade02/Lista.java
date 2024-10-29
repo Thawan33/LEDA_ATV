@@ -31,7 +31,16 @@ public class Lista implements Lista_IF{
 
     @Override
     public Filme_IF remove(long id) throws Exception{
-        return null;
+        NodeLista aux = head;
+        while (aux != null && aux.getData().getID() != id) {
+            aux = aux.getNext();
+        }
+        if (aux == null) {
+            throw new Exception("Elemento não existe");
+        }
+        aux.getAnt().setNext(aux.getNext());
+        aux.getNext().setAnt(aux.getAnt());
+        return aux.getData();
     }
 
     @Override
@@ -55,9 +64,14 @@ public class Lista implements Lista_IF{
 
     @Override
     public Filme_IF search(long id) throws Exception {
-        //TODO
-        //fazer
-        return null;
+        NodeLista aux = head;
+        while (aux != null && aux.getData().getID() != id) {
+            aux = aux.getNext();
+        }
+        if (aux == null) {
+            throw new Exception("Elemento não existe");
+        }
+        return aux.getData();
     }
 
     @Override
@@ -79,5 +93,9 @@ public class Lista implements Lista_IF{
     @Override
     public int size() {
         return size;
+    }
+
+    public String print(){
+        return "";
     }
 }

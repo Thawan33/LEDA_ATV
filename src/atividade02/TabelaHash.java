@@ -6,7 +6,8 @@ public class TabelaHash implements TabelaHash_IF{
     Lista_IF[] T = new Lista_IF[M];
     @Override
     public Filme_IF remove(long id) throws Exception {
-        return null;
+        int i = hash(id);
+        return T[i].remove(id);
     }
 
     @Override
@@ -17,16 +18,25 @@ public class TabelaHash implements TabelaHash_IF{
 
     @Override
     public boolean isEmpty() {
-        return false;
+        for (int i = 0; i < M; i++){
+            if (!T[i].isEmpty()){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public Filme_IF search(long id) throws Exception {
-        return null;
+        int i = hash(id);
+        return T[i].search(id);
     }
 
     @Override
     public String print() {
+        for (int i = 0; i < M; i++){
+
+        }
         return "";
     }
     private int hash(long id) {
