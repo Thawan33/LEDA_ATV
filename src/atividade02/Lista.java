@@ -30,16 +30,39 @@ public class Lista implements Lista_IF{
     }
 
     @Override
-    public Filme_IF remove(long id) throws Exception{
+    public Filme_IF remove(long id) throws Exception {
         NodeLista aux = head;
+
+        // Percorre a lista até encontrar o nó com o ID desejado
         while (aux != null && aux.getData().getID() != id) {
             aux = aux.getNext();
         }
+
         if (aux == null) {
             throw new Exception("Elemento não existe");
         }
-        aux.getAnt().setNext(aux.getNext());
-        aux.getNext().setAnt(aux.getAnt());
+
+        // Caso seja o único elemento na lista
+        if (aux == head && aux == tail) {
+            head = tail = null;
+        }
+        // Caso o nó seja o primeiro da lista
+        else if (aux == head) {
+            head = aux.getNext();
+            head.setAnt(null);
+        }
+        // Caso o nó seja o último da lista
+        else if (aux == tail) {
+            tail = aux.getAnt();
+            tail.setNext(null);
+        }
+        // Caso o nó esteja entre o primeiro e o último
+        else {
+            aux.getAnt().setNext(aux.getNext());
+            aux.getNext().setAnt(aux.getAnt());
+        }
+
+        size--;
         return aux.getData();
     }
 
@@ -96,6 +119,17 @@ public class Lista implements Lista_IF{
     }
 
     public String print(){
-        return "";
+        StringBuilder builder = new StringBuilder();
+        NodeLista current = head;
+        while (current != null) {
+            builder.append(current.getData().getNome())
+                    .append(" (ID ").append(current.getData().getID()).append(")");
+            current = current.getNext();
+            if (current != null) {
+                builder.append(" -> ");
+            }
+        }
+        return builder.toString();
     }
+
 }
