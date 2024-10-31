@@ -2,9 +2,10 @@ package atividade02;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class Filme implements Filme_IF {
+public class Filme implements Filme_IF{
     private long ID;
     private String nome;
     private int nota;
@@ -99,4 +100,5 @@ public class Filme implements Filme_IF {
                 ", ano=" + ano +
                 '}';
     }
+
 }

@@ -40,4 +40,26 @@ public class Fila implements Fila_IF{
         }
         return p1.top();
     }
+    public Filme_IF buscar(Long id) {
+        Filme_IF filmeEncontrado = null;
+        while (!p1.isEmpty()) {
+            try {
+                Filme_IF filme = p1.pop();
+                if (filme.getID() == id) {
+                    filmeEncontrado = filme;
+                }
+                p2.push(filme);
+            } catch (Exception e) {
+                System.err.println("ERRO");
+            }
+        }
+        while (!p2.isEmpty()) {
+            try {
+                p1.push(p2.pop());
+            } catch (Exception e) {
+                System.err.println("ERRO");
+            }
+        }
+        return filmeEncontrado;
+    }
 }
