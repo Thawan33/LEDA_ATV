@@ -20,7 +20,7 @@ public class GerenciadorDeFilmes {
                 arvoreBinaria = new BST();
                 break;
             default:
-                throw new IllegalArgumentException("Estrutura de dados inválida.");
+                throw new IllegalArgumentException("Estrutura de dados invï¿½lida.");
         }
     }
 
@@ -36,18 +36,27 @@ public class GerenciadorDeFilmes {
         }
 
     }
-    public void deletarFilme(Filme filme) throws Exception {
+
+    public Filme_IF deletarFilme() throws Exception {
         if (fila != null) {
-            fila.dequeue();
-        }else if (arvoreBinaria != null) {
-            arvoreBinaria.remove(filme.getID());
-        } else if (tabelaHash != null) {
-            tabelaHash.remove(filme.getID());
+            return fila.dequeue();
         }else{
-            System.out.println("Nenhuma estrutura selecinada");
+            return null;
         }
     }
-    public Filme buscarFilme(Long id) throws Exception {
+
+    public Filme_IF deletarFilme(long id) throws Exception {
+        if (arvoreBinaria != null) {
+            return arvoreBinaria.remove(id);
+        } else if (tabelaHash != null) {
+            return tabelaHash.remove(id);
+        } else {
+            System.out.println("Nenhuma estrutura selecinada");
+        }
+        return null;
+    }
+
+    public Filme buscarFilme(long id) throws Exception {
         if (fila != null) {
             return (Filme) fila.buscar(id);
         }else if (arvoreBinaria != null) {
@@ -61,5 +70,13 @@ public class GerenciadorDeFilmes {
     }
     public void exibirFilmesOrdenados() throws Exception {
         //TODO
+    }
+
+    public Fila getFila() {
+        return fila;
+    }
+
+    public void setFila(Fila fila) {
+        this.fila = fila;
     }
 }

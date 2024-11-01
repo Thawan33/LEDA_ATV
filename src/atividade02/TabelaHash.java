@@ -35,7 +35,11 @@ public class TabelaHash implements TabelaHash_IF {
     @Override
     public Filme_IF search(long id) throws Exception {
         int i = hash(id);
-        return T[i].search(id);
+        filmeaux = T[i].search(id);
+        if (filmeaux == null) {
+            System.err.println("Elemento não encontrado");
+        }
+        return filmeaux;
     }
 
     @Override

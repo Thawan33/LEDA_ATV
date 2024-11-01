@@ -10,7 +10,7 @@ public class Lista implements Lista_IF{
 
     public Filme_IF remove() throws Exception {
         if (isEmpty()){
-            throw new Exception("Lista vazia");
+            return null;
         }
         if(head == tail){
             NodeLista aux = tail;
@@ -31,6 +31,9 @@ public class Lista implements Lista_IF{
 
     @Override
     public Filme_IF remove(long id) throws Exception {
+        if (isEmpty()){
+            return null;
+        }
         NodeLista aux = head;
 
         // Percorre a lista até encontrar o nó com o ID desejado
@@ -39,7 +42,7 @@ public class Lista implements Lista_IF{
         }
 
         if (aux == null) {
-            throw new Exception("Elemento não existe");
+            return null;
         }
 
         // Caso seja o único elemento na lista
@@ -92,7 +95,7 @@ public class Lista implements Lista_IF{
             aux = aux.getNext();
         }
         if (aux == null) {
-            throw new Exception("Elemento não existe");
+            return null;
         }
         return aux.getData();
     }
@@ -131,5 +134,13 @@ public class Lista implements Lista_IF{
         }
         return builder.toString();
     }
-
+    public List<Filme_IF> getFilmes() {
+        List<Filme_IF> filmes = new ArrayList<>();
+        NodeLista current = head;
+        while (current != null) {
+            filmes.add(current.getData());
+            current = current.getNext();
+        }
+        return filmes;
+    }
 }
