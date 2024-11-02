@@ -1,5 +1,8 @@
 package atividade02;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 public class TabelaHash implements TabelaHash_IF {
     private static final int M = 10;
     private Lista[] T = new Lista[M];
@@ -12,8 +15,13 @@ public class TabelaHash implements TabelaHash_IF {
 
     @Override
     public Filme_IF remove(long id) throws Exception {
+        Filme_IF filmeaux = null;
         int i = hash(id);
-        return T[i].remove(id);
+        filmeaux = T[i].remove(id);
+        if(filmeaux == null) {
+            System.err.println("Elemento não encontrado");
+        }
+        return filmeaux;
     }
 
     @Override
@@ -34,6 +42,7 @@ public class TabelaHash implements TabelaHash_IF {
 
     @Override
     public Filme_IF search(long id) throws Exception {
+        Filme_IF filmeaux = null;
         int i = hash(id);
         filmeaux = T[i].search(id);
         if (filmeaux == null) {
@@ -56,6 +65,26 @@ public class TabelaHash implements TabelaHash_IF {
                 builder.append("vazio");
             }
             builder.append("\n");
+        }
+
+        return builder.toString();
+    }
+    public String printInOrderByID() {
+        ArrayList<Filme_IF> filmes = new ArrayList<>();
+
+        for (int i = 0; i < M; i++) {
+            if (T[i] != null && !T[i].isEmpty()) {
+                filmes.addAll(T[i].getFilmes());
+            }
+        }
+
+        filmes.sort(Comparator.comparingLong(Filme_IF::getID));
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Tabela Hash em ordem de ID:\n");
+
+        for (Filme_IF filme : filmes) {
+            builder.append(filme.toString()).append("\n");
         }
 
         return builder.toString();

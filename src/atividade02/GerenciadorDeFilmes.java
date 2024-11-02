@@ -2,8 +2,12 @@ package atividade02;
 
 import Entidades.Ordenacao;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public class GerenciadorDeFilmes {
-    private TabelaHash_IF tabelaHash;
+    private TabelaHash tabelaHash;
     private Fila fila;
     private BST_IF arvoreBinaria;
     private Ordenacao ordenacao = new Ordenacao();
@@ -29,9 +33,9 @@ public class GerenciadorDeFilmes {
             fila.enqueue(filme);
         } else if (arvoreBinaria != null) {
             arvoreBinaria.insert(filme);
-        }else if(tabelaHash != null){
+        } else if (tabelaHash != null) {
             tabelaHash.insert(filme);
-        }else{
+        } else {
             System.out.println("Nenhuma estrutura selecinada");
         }
 
@@ -59,17 +63,24 @@ public class GerenciadorDeFilmes {
     public Filme buscarFilme(long id) throws Exception {
         if (fila != null) {
             return (Filme) fila.buscar(id);
-        }else if (arvoreBinaria != null) {
+        } else if (arvoreBinaria != null) {
             return (Filme) arvoreBinaria.search(id);
-        }else if (tabelaHash != null) {
+        } else if (tabelaHash != null) {
             return (Filme) tabelaHash.search(id);
-        }else{
+        } else {
             System.out.println("Nenhuma estrutura selecinada");
         }
         return null;
     }
+
     public void exibirFilmesOrdenados() throws Exception {
-        //TODO
+        if (tabelaHash != null) {
+            System.out.println(tabelaHash.printInOrderByID());
+        } else if (arvoreBinaria != null) {
+            arvoreBinaria.order();
+        } else if (fila != null) {
+            fila.printInOrder();
+        }
     }
 
     public Fila getFila() {

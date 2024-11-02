@@ -22,7 +22,6 @@ public class Filme implements Filme_IF{
     }
 
     public Filme(long ID, String nome) {
-
         this.ID = ID;
         this.nome = nome;
     }

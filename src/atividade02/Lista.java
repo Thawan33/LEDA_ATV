@@ -1,5 +1,8 @@
 package atividade02;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Lista implements Lista_IF{
     private int size;
     private NodeLista head,tail;

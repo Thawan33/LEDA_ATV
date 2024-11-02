@@ -1,71 +1,97 @@
 package atividade02;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Main {
+
     public static void main(String[] args) throws Exception {
 
-            /*try {
-                    TabelaHash tabela = new TabelaHash();
+        final int TAMANHO_VETOR = 1;
+        Scanner sc = new Scanner(System.in);
 
-                    Filme_IF filmeA = new Filme(1, "Filme A");
-                    Filme_IF filmeB = new Filme(12, "Filme B");
-                    Filme_IF filmeC = new Filme(23, "Filme C");
+        Filme[] filmes = new Filme[TAMANHO_VETOR];
+        int count = 0;
+        int choice = 0;
 
-                    tabela.insert(filmeA);
-                    tabela.insert(filmeB);
-                    tabela.insert(filmeC);
-
-                    System.out.println("Buscando Filme com ID 1: " + tabela.search(1).getNome());
-                    System.out.println("Buscando Filme com ID 12: " + tabela.search(12).getNome());
-                    System.out.println("Buscando Filme com ID 23: " + tabela.search(23).getNome());
-
-                    System.out.println("Removendo Filme com ID 12...");
-                    tabela.remove(12);
-
-                    System.out.println("Buscando novamente Filme com ID 12...");
-                    try {
-                            System.out.println("Resultado: " + tabela.search(12).getNome());
-                    } catch (Exception e) {
-                            System.out.println("O Filme com ID 12 não existe mais na tabela.");
-                    }
-
-            } catch (Exception e) {
-                    e.printStackTrace();
+        try (BufferedReader br = new BufferedReader(new FileReader("filmes.txt"))) {
+            String linha;
+            while ((linha = br.readLine()) != null && count < TAMANHO_VETOR) {
+                String[] partes = linha.split(", ");
+                if (partes.length == 3) {
+                    filmes[count++] = new Filme(partes[0], Integer.parseInt(partes[2]), Integer.parseInt(partes[1]));
+                }
             }
-             */
-            try {
-                    TabelaHash tabela = new TabelaHash();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.print("Digite a estrutura que vai ser guardado os filmes(hash, bst, fila)?");
+        GerenciadorDeFilmes gerenciador = new GerenciadorDeFilmes(sc.nextLine());
+        for (Filme filme : filmes) {
+            gerenciador.InserirFilme(filme);
+        }
+        while (true) {
+            System.out.println("Escolha uma opcao:");
+            System.out.println("1 - Inserir Filme");
+            System.out.println("2 - Deletar Filme");
+            System.out.println("3 - Buscar Filme");
+            System.out.println("4 - Exibir Filmes Ordenados");
+            System.out.println("5 - Sair");
 
-                    Filme_IF filmeA = new Filme(1, "Filme A");
-                    Filme_IF filmeB = new Filme(12, "Filme B");
-                    Filme_IF filmeC = new Filme(23, "Filme C");
+            int ops = sc.nextInt();
+            sc.nextLine();
 
-                    tabela.insert(filmeA);
-                    tabela.insert(filmeB);
-                    tabela.insert(filmeC);
-
-                    System.out.println("Estado inicial da Tabela Hash:");
-                    System.out.println(tabela.print());
-
-                    System.out.println("Buscando Filme com ID 1: " + tabela.search(1).getNome());
-                    System.out.println("Buscando Filme com ID 12: " + tabela.search(12).getNome());
-                    System.out.println("Buscando Filme com ID 23: " + tabela.search(23).getNome());
-
-                    System.out.println("\nRemovendo Filme com ID 12...");
-                    tabela.remove(12);
-
-                    System.out.println("Buscando novamente Filme com ID 12...");
-                    try {
-                            System.out.println("Resultado: " + tabela.search(12).getNome());
-                    } catch (Exception e) {
-                            System.out.println("O Filme com ID 12 não existe mais na tabela.");
+            switch (ops) {
+                case 1:
+                    System.out.println("Digite o nome do filme: ");
+                    String nome = sc.nextLine();
+                    System.out.println("Digite o ano do filme: ");
+                    int ano = sc.nextInt();
+                    System.out.println("Digite a nota do filme: ");
+                    int nota = sc.nextInt();
+                    sc.nextLine();
+                    Filme filme = new Filme(nome, ano, nota);
+                    gerenciador.InserirFilme(filme);
+                    System.out.println("Filme inserido com sucesso!");
+                    break;
+                case 2:
+                    if (gerenciador.getFila() != null) {
+                        Filme_IF filmeaux = gerenciador.deletarFilme();
+                        if(filmeaux != null) {
+                            System.out.println("Filme removido com sucesso!");
+                        }
+                    } else {
+                        System.out.println("Digite o ID do filme para remover: ");
+                        int id = sc.nextInt();
+                        sc.nextLine();
+                        Filme_IF filmeaux = gerenciador.deletarFilme(id);
+                        if (filmeaux != null) {
+                            System.out.println("Filme removido com sucesso!");
+                        }
                     }
-
-                    System.out.println("\nEstado final da Tabela Hash:");
-                    System.out.println(tabela.print());
-
-            } catch (Exception e) {
-                    e.printStackTrace();
+                    break;
+                case 3:
+                    System.out.println("Digite o ID do filme para buscar: ");
+                    int buscarId = sc.nextInt();
+                    sc.nextLine();
+                    Filme filmeaux = gerenciador.buscarFilme(buscarId);
+                    if(filmeaux != null) {
+                        System.out.println(filmeaux);
+                    }
+                    break;
+                case 4:
+                    gerenciador.exibirFilmesOrdenados();
+                    break;
+                case 5:
+                    System.out.println("Saiu!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("ERRO! OpÃ§Ã£o invÃ¡lida.");
+                    break;
             }
-
+        }
     }
 }
