@@ -21,6 +21,9 @@ public class Fila implements Fila_IF{
 
     @Override
     public void enqueue(Filme_IF elemento) {
+        if (elemento == null) {
+            throw new NullPointerException();
+        }
         while(!p1.isEmpty()){
             try {
                 p2.push(p1.pop());

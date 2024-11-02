@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        final int TAMANHO_VETOR = 1;
+        final int TAMANHO_VETOR = 20;
         Scanner sc = new Scanner(System.in);
 
         Filme[] filmes = new Filme[TAMANHO_VETOR];
@@ -42,7 +42,8 @@ public class Main {
 
             int ops = sc.nextInt();
             sc.nextLine();
-
+            Long t1;
+            Long t2;
             switch (ops) {
                 case 1:
                     System.out.println("Digite o nome do filme: ");
@@ -53,22 +54,31 @@ public class Main {
                     int nota = sc.nextInt();
                     sc.nextLine();
                     Filme filme = new Filme(nome, ano, nota);
+                    t1 = System.nanoTime();
                     gerenciador.InserirFilme(filme);
+                    t2 = System.nanoTime();
                     System.out.println("Filme inserido com sucesso!");
+                    System.out.println((t2 - t1)/1000000.00 + "ms");
                     break;
                 case 2:
                     if (gerenciador.getFila() != null) {
+                        t1 = System.nanoTime();
                         Filme_IF filmeaux = gerenciador.deletarFilme();
+                        t2 = System.nanoTime();
                         if(filmeaux != null) {
                             System.out.println("Filme removido com sucesso!");
+                            System.out.println((t2 - t1)/1000000.00 + "ms");
                         }
                     } else {
                         System.out.println("Digite o ID do filme para remover: ");
                         int id = sc.nextInt();
                         sc.nextLine();
+                        t1 = System.nanoTime();
                         Filme_IF filmeaux = gerenciador.deletarFilme(id);
+                        t2 = System.nanoTime();
                         if (filmeaux != null) {
                             System.out.println("Filme removido com sucesso!");
+                            System.out.println((t2 - t1)/1000000.00 + "ms");
                         }
                     }
                     break;
@@ -76,13 +86,19 @@ public class Main {
                     System.out.println("Digite o ID do filme para buscar: ");
                     int buscarId = sc.nextInt();
                     sc.nextLine();
+                    t1 = System.nanoTime();
                     Filme filmeaux = gerenciador.buscarFilme(buscarId);
+                    t2 = System.nanoTime();
                     if(filmeaux != null) {
                         System.out.println(filmeaux);
+                        System.out.println((t2 - t1)/1000000.00 + "ms");
                     }
                     break;
                 case 4:
+                    t1 = System.nanoTime();
                     gerenciador.exibirFilmesOrdenados();
+                    t2 = System.nanoTime();
+                    System.out.println((t2 - t1)/1000000.00 + "ms");
                     break;
                 case 5:
                     System.out.println("Saiu!");

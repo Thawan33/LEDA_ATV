@@ -21,9 +21,11 @@ public class Filme implements Filme_IF{
         cont++;
     }
 
-    public Filme(long ID, String nome) {
+    public Filme(long ID, String nome, int nota, int ano) {
         this.ID = ID;
         this.nome = nome;
+        this.nota = nota;
+        this.ano = ano;
     }
 
     @Override
@@ -92,12 +94,8 @@ public class Filme implements Filme_IF{
 
     @Override
     public String toString() {
-        return "Filme{" +
-                "id=" + ID +
-                ", nome='" + nome + '\'' +
-                ", nota=" + nota +
-                ", ano=" + ano +
-                '}';
+        return nome + " (" + ano +
+                ") [" + nota +
+                "]" + " {" + ID + "}";
     }
-
 }

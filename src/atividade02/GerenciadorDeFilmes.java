@@ -77,7 +77,10 @@ public class GerenciadorDeFilmes {
         if (tabelaHash != null) {
             System.out.println(tabelaHash.printInOrderByID());
         } else if (arvoreBinaria != null) {
-            arvoreBinaria.order();
+            Filme_IF[] array = arvoreBinaria.order();
+            for (Filme_IF f: array){
+                System.out.println(f);
+            }
         } else if (fila != null) {
             fila.printInOrder();
         }
