@@ -1,5 +1,7 @@
 package atividade02;
 
+import java.util.ArrayList;
+
 public class BST implements BST_IF{
     private NodeBST root;
 
@@ -8,7 +10,7 @@ public class BST implements BST_IF{
         NodeBST removido = new NodeBST();
         root = remover(root, id, removido);
         if (removido.getFilme() == null) {
-            throw new Exception("Filme não encontrado!");
+            return null;
         }
         return removido.getFilme();
     }
@@ -69,7 +71,10 @@ public class BST implements BST_IF{
 
     @Override
     public boolean isEmpty() {
-        return root.getFilme() == null;
+        if (root == null){
+            return true;
+        }
+        return false;
     }
 
     public Filme_IF search(long id) throws Exception {
@@ -78,7 +83,7 @@ public class BST implements BST_IF{
 
     private Filme_IF search(NodeBST root, long id) throws Exception {
         if (root == null) {
-            throw new Exception("Filme não encontrado!");
+            return null;
         }
         if (root.getFilme().getID() == id) {
             return root.getFilme();
@@ -105,7 +110,7 @@ public class BST implements BST_IF{
     }
     private int height(NodeBST node) {
         if (node == null){
-            return -1;
+            return 0;
         }
         int leftHeight = height(node.getLeft());
         int rightHeight = height(node.getRight());
@@ -144,40 +149,46 @@ public class BST implements BST_IF{
 
     @Override
     public Filme_IF[] preOrder() {
-        return preOrder(root);
+        ArrayList<Filme_IF> lista = new ArrayList<>();
+        preOrder(root, lista);
+        Filme_IF[] array = new Filme_IF[lista.size()];
+        return lista.toArray(array);
     }
-    private Filme_IF[] preOrder(NodeBST node) {
-        if (root != null) {
-            System.out.println(root.getFilme() + "-");
-            order(root.getLeft());
-            order(root.getRight());
+    private void preOrder(NodeBST node, ArrayList<Filme_IF> lista) {
+        if (node != null) {
+            lista.add(node.getFilme());
+            preOrder(node.getLeft(), lista);
+            preOrder(node.getRight(), lista);
         }
-        return null;
     }
 
     @Override
     public Filme_IF[] order() {
-        return order(root);
+        ArrayList<Filme_IF> lista = new ArrayList<>();
+        order(root, lista);
+        Filme_IF[] array = new Filme_IF[lista.size()];
+        return lista.toArray(array);
     }
-    private Filme_IF[] order(NodeBST root) {
-        if (root != null) {
-            order(root.getLeft());
-            System.out.println(root.getFilme() + "-");
-            order(root.getRight());
+    private void order(NodeBST node, ArrayList<Filme_IF> lista) {
+        if (node != null) {
+            order(node.getLeft(), lista);
+            lista.add(node.getFilme());
+            order(node.getRight(), lista);
         }
-        return null;
     }
 
     @Override
     public Filme_IF[] postOrder() {
-        return postOrder(root);
+        ArrayList<Filme_IF> lista = new ArrayList<>();
+        postOrder(root, lista);
+        Filme_IF[] array = new Filme_IF[lista.size()];
+        return lista.toArray(array);
     }
-    private Filme_IF[] postOrder(NodeBST node) {
-        if (root != null) {
-            order(root.getLeft());
-            order(root.getRight());
-            System.out.println(root.getFilme() + "-");
+    private void postOrder(NodeBST node, ArrayList<Filme_IF> lista) {
+        if (node != null) {
+            postOrder(node.getLeft(), lista);
+            postOrder(node.getRight(), lista);
+            lista.add(node.getFilme());
         }
-        return null;
     }
 }
